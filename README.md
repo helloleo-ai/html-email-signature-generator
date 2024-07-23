@@ -12,13 +12,23 @@ Welcome to the HTML Email Signature Generator! This tool helps you create profes
 ## How to Use 🔍
 
 1. Clone this repository 📂
-2. Edit the `template.html` file to match your desired signature style 🖊️
-3. Run `generate_signature.py` and follow the prompts 🖥️
-4. Copy the generated HTML signature to your email client ✉️
+2. Make the install script executable:
+   ```
+   chmod +x install_and_run.sh
+   ```
+3. Run the install and launch script:
+   ```
+   ./install_and_run.sh
+   ```
+4. Open your web browser and go to `http://localhost:5000`
+5. Fill in the form and generate your email signature
+6. Download the generated HTML file and add it to your email client ✉️
 
 ## Requirements 📋
 
+- Unix-like operating system (Linux or macOS)
 - Python 3.x 🐍
+- pip (Python package installer)
 
 ## Contributing 🤝
 
