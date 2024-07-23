@@ -47,16 +47,16 @@
         <h1 class="text-center">Email Signature Generator</h1>
         <form id="signatureForm">
             <div class="mb-3">
-                <label for="name" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="name" required>
+                <label for="firstname" class="form-label">First Name</label>
+                <input type="text" class="form-control" id="firstname" required>
             </div>
             <div class="mb-3">
-                <label for="position" class="form-label">Position</label>
-                <input type="text" class="form-control" id="position" required>
+                <label for="lastname" class="form-label">Last Name</label>
+                <input type="text" class="form-control" id="lastname" required>
             </div>
             <div class="mb-3">
-                <label for="company" class="form-label">Company</label>
-                <input type="text" class="form-control" id="company" required>
+                <label for="title" class="form-label">Title</label>
+                <input type="text" class="form-control" id="title" required>
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
@@ -67,8 +67,8 @@
                 <input type="tel" class="form-control" id="phone" required>
             </div>
             <div class="mb-3">
-                <label for="website" class="form-label">Website</label>
-                <input type="url" class="form-control" id="website">
+                <label for="avatar_url" class="form-label">Avatar URL</label>
+                <input type="url" class="form-control" id="avatar_url" required>
             </div>
             <button type="submit" class="btn btn-primary w-100">Generate Signature</button>
         </form>
@@ -79,29 +79,29 @@
     <script>
         document.getElementById('signatureForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            const name = document.getElementById('name').value;
-            const position = document.getElementById('position').value;
-            const company = document.getElementById('company').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const website = document.getElementById('website').value;
+            const formData = {
+                firstname: document.getElementById('firstname').value,
+                lastname: document.getElementById('lastname').value,
+                title: document.getElementById('title').value,
+                email: document.getElementById('email').value,
+                phone: document.getElementById('phone').value,
+                avatar_url: document.getElementById('avatar_url').value
+            };
 
-            const signature = `
-                <table>
-                    <tr>
-                        <td style="font-family: Arial, sans-serif; font-size: 14px; color: #333;">
-                            <strong>${name}</strong><br>
-                            ${position}<br>
-                            ${company}<br>
-                            Email: <a href="mailto:${email}" style="color: #667eea;">${email}</a><br>
-                            Phone: ${phone}<br>
-                            ${website ? `Website: <a href="${website}" style="color: #667eea;">${website}</a>` : ''}
-                        </td>
-                    </tr>
-                </table>
-            `;
-
-            document.getElementById('signaturePreview').innerHTML = signature;
+            fetch('/generate_signature', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData),
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('signaturePreview').innerHTML = data.signature;
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         });
     </script>
 </body>
