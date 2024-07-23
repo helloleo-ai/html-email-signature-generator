@@ -16,15 +16,25 @@ def generate_email_signature(firstname, lastname, title, email, phone, avatar_ur
     with open(template_path, 'r') as file:
         template = file.read()
     
-    avatar_direct_url = convert_drive_link_to_direct_url(avatar_url)
+    avatar_direct_url = convert_drive_link_to_direct_url(avatar_url) if avatar_url else ''
     
-    html_template = template.replace('{{firstname}}', firstname)\
-                            .replace('{{lastname}}', lastname)\
-                            .replace('{{title}}', title)\
-                            .replace('{{email}}', email)\
-                            .replace('{{phone}}', phone)\
-                            .replace('{{avatar_url}}', avatar_direct_url)
-    return html_template
+    replacements = {
+        '{{firstname}}': firstname,
+        '{{lastname}}': lastname,
+        '{{title}}': title,
+        '{{email}}': email,
+        '{{phone}}': phone,
+        '{{avatar_url}}': avatar_direct_url
+    }
+    
+    for placeholder, value in replacements.items():
+        if value:
+            template = template.replace(placeholder, value)
+        else:
+            # Remove the entire line if the value is empty
+            template = re.sub(r'.*' + re.escape(placeholder) + r'.*\n?', '', template)
+    
+    return template
 
 # The main() function and other input processing functions have been removed
 # as they are not needed for the web application.

@@ -1,3 +1,30 @@
+from flask import Flask, request, jsonify, send_from_directory
+from flask_cors import CORS
+import os
+from generate_signature import generate_email_signature
+
+app = Flask(__name__)
+CORS(app)
+
+@app.route('/', methods=['GET'])
+def serve_index():
+    return send_from_directory('.', 'index.html')
+
+@app.route('/generate', methods=['POST'])
+def generate_signature():
+    data = request.json
+    signature = generate_email_signature(
+        data.get('firstname', ''),
+        data.get('lastname', ''),
+        data.get('title', ''),
+        data.get('email', ''),
+        data.get('phone', ''),
+        data.get('avatar_url', '')
+    )
+    return jsonify({'signature': signature})
+
+if __name__ == '__main__':
+    app.run(debug=True)
 from flask import Flask, render_template, request, send_file
 from generate_signature import generate_email_signature, normalize_name
 import os
