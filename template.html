@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Terros Signature Email</title>
+</head>
+<table style="max-width: 600px; font-family: Arial, sans-serif; font-size: 14px; color: #000;">
+    <tr>
+      <td style="vertical-align: top; border-right: 1px solid #ccc; padding-right: 20px;">
+        <table style="margin-bottom: 10px;">
+          <tr>
+            <td style="font-size: 22px; font-weight: bold;">{{firstname}} {{lastname}}</td>
+          </tr>
+          <tr>
+            <td style="font-size: 18px; color: #555;">{{title}} | Terros</td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px; color: #555;">
+              <a href="mailto:{{email}}" style="color: #007bff; text-decoration: none;">{{email}}</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px; color: #555;">{{phone}}</td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px; color: #555;">
+              <a href="https://terros.io" style="color: #007bff; text-decoration: none;">https://terros.io</a>
+            </td>
+          </tr>
+          <tr>
+            <td style="font-size: 14px; color: #555;">83 Boulevard de Sébastopol 75002 Paris</td>
+          </tr>          
+        </table>
+      </td>
+      <td style="vertical-align: middle; padding-left: 20px;">
+        <img src="{{avatar_url}}" alt="{{firstname}} {{lastname}}" style="border-radius: 50%; width: 130px; height: 130px;">
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" style="padding-top: 1px;">
+        <hr style="border: 0; border-top: 1px solid #ccc;">
+        <img src="https://drive.google.com/uc?export=view&id=1pCySh1accz-byDc4NNqbpc_ZBgG0zui0" alt="Terros Logo" style="width: 150px;">
+      </td>
+    </tr>
+  </table>
+</html> 
