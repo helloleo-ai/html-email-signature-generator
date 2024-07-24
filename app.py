@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, jsonify, send_file
+from flask_cors import CORS
 from generate_signature import generate_email_signature, normalize_name
 import os
 
 app = Flask(__name__, static_folder='.', static_url_path='')
+CORS(app)
 
 @app.route('/')
 def index():
