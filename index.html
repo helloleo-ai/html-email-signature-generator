@@ -89,7 +89,7 @@
                 avatar_url: document.getElementById('avatar_url').value
             };
 
-            fetch('http://localhost:5000/generate_signature', {
+            fetch('http://127.0.0.1:5000/generate_signature', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -100,7 +100,7 @@
             .then(data => {
                 document.getElementById('signaturePreview').innerHTML = data.signature;
                 const downloadLink = document.createElement('a');
-                downloadLink.href = `http://localhost:5000/download/${data.filename}`;
+                downloadLink.href = `http://127.0.0.1:5000/download/${data.filename}`;
                 downloadLink.download = data.filename;
                 downloadLink.classList.add('btn', 'btn-success', 'mt-3');
                 downloadLink.textContent = 'Download Signature';
