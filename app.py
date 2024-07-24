@@ -1,48 +1,22 @@
-from flask import Flask, request, jsonify, send_from_directory
-from flask_cors import CORS
-import os
-from generate_signature import generate_email_signature
-
-app = Flask(__name__)
-CORS(app)
-
-@app.route('/', methods=['GET'])
-def serve_index():
-    return send_from_directory('.', 'index.html')
-
-@app.route('/generate', methods=['POST'])
-def generate_signature():
-    data = request.json
-    signature = generate_email_signature(
-        data.get('firstname', ''),
-        data.get('lastname', ''),
-        data.get('title', ''),
-        data.get('email', ''),
-        data.get('phone', ''),
-        data.get('avatar_url', '')
-    )
-    return jsonify({'signature': signature})
-
-if __name__ == '__main__':
-    app.run(debug=True)
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request, jsonify, send_file
 from generate_signature import generate_email_signature, normalize_name
 import os
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='.', static_url_path='')
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return app.send_static_file('index.html')
 
-@app.route('/generate', methods=['POST'])
-def generate():
-    firstname = request.form['firstname']
-    lastname = request.form['lastname']
-    title = request.form['title']
-    email = request.form['email']
-    phone = request.form['phone']
-    avatar_url = request.form['avatar_url']
+@app.route('/generate_signature', methods=['POST'])
+def generate_signature():
+    data = request.json
+    firstname = data['firstname']
+    lastname = data['lastname']
+    title = data['title']
+    email = data['email']
+    phone = data['phone']
+    avatar_url = data['avatar_url']
 
     signature = generate_email_signature(firstname, lastname, title, email, phone, avatar_url)
 
@@ -57,31 +31,11 @@ def generate():
     with open(filepath, "w") as file:
         file.write(signature)
 
-    return send_file(filepath, as_attachment=True)
+    return jsonify({'signature': signature, 'filename': filename})
 
-if __name__ == '__main__':
-    app.run(debug=True)
-from flask import Flask, render_template, request, jsonify
-from generate_signature import generate_email_signature, convert_drive_link_to_direct_url
-
-app = Flask(__name__)
-
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-@app.route('/generate_signature', methods=['POST'])
-def generate_signature():
-    data = request.json
-    firstname = data['firstname']
-    lastname = data['lastname']
-    title = data['title']
-    email = data['email']
-    phone = data['phone']
-    avatar_url = data['avatar_url']
-
-    signature = generate_email_signature(firstname, lastname, title, email, phone, avatar_url)
-    return jsonify({'signature': signature})
+@app.route('/download/<filename>')
+def download_file(filename):
+    return send_file(f"html_signatures/{filename}", as_attachment=True)
 
 if __name__ == '__main__':
     app.run(debug=True)
