@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Email Signatures</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding-top: 50px;
+        }
+        .container {
+            background-color: rgba(255, 255, 255, 0.9);
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        }
+        h1 {
+            color: #4a4a4a;
+            margin-bottom: 30px;
+        }
+        .signature-card {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">Your Email Signatures</h1>
+        <div class="row">
+            {% for signature in signatures %}
+                <div class="col-md-6 mb-4">
+                    <div class="signature-card">
+                        <h3>{{ signature.firstname }} {{ signature.lastname }}</h3>
+                        <p><strong>Title:</strong> {{ signature.title }}</p>
+                        <p><strong>Email:</strong> {{ signature.email }}</p>
+                        <p><strong>Phone:</strong> {{ signature.phone }}</p>
+                        <img src="{{ signature.avatar_url }}" alt="Avatar" style="width: 100px; height: 100px; border-radius: 50%; margin-bottom: 10px;">
+                        <div>
+                            <a href="{{ url_for('download_file', filename=signature.filename) }}" class="btn btn-primary">Download</a>
+                            <form action="{{ url_for('delete_signature', filename=signature.filename) }}" method="post" style="display: inline;">
+                                <button type="submit" class="btn btn-danger">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <div class="text-center mt-4">
+            <a href="/" class="btn btn-success">Create New Signature</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

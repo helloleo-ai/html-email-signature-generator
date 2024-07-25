@@ -1,9 +1,12 @@
-from flask import Flask, render_template, request, jsonify, send_file
+from flask import Flask, render_template, request, jsonify, send_file, redirect, url_for
 from flask_cors import CORS
 from generate_signature import generate_email_signature, normalize_name
 import os
 
 app = Flask(__name__, static_folder='.', static_url_path='')
+
+# In-memory storage for simplicity. In a real application, you'd use a database.
+signatures = []
 CORS(app)
 
 @app.route('/')
@@ -33,7 +36,31 @@ def generate_signature():
     with open(filepath, "w") as file:
         file.write(signature)
 
+    # Store the signature data
+    signatures.append({
+        'firstname': firstname,
+        'lastname': lastname,
+        'title': title,
+        'email': email,
+        'phone': phone,
+        'avatar_url': avatar_url,
+        'filename': filename
+    })
+
     return jsonify({'signature': signature, 'filename': filename})
+
+@app.route('/profile')
+def profile():
+    return render_template('profile.html', signatures=signatures)
+
+@app.route('/delete_signature/<filename>', methods=['POST'])
+def delete_signature(filename):
+    global signatures
+    signatures = [sig for sig in signatures if sig['filename'] != filename]
+    filepath = os.path.join('html_signatures', filename)
+    if os.path.exists(filepath):
+        os.remove(filepath)
+    return redirect(url_for('profile'))
 
 @app.route('/download/<filename>')
 def download_file(filename):
