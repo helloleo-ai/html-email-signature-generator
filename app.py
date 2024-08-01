@@ -9,12 +9,17 @@ load_dotenv()  # Load environment variables from .env file
 app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
 
-# Enable debug mode
+# Enable debug mode and hot reloading
 app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', 'True').lower() == 'true'
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.jinja_env.auto_reload = True
 
 @app.route('/')
 def index():
-    return app.send_static_file('index.html')
+    # Read the content of index.html on each request
+    with open('index.html', 'r') as file:
+        content = file.read()
+    return content
 
 @app.route('/generate_signature', methods=['POST'])
 def generate_signature():
