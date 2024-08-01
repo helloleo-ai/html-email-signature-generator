@@ -2,9 +2,15 @@ from flask import Flask, render_template, request, jsonify, send_file
 from flask_cors import CORS
 from generate_signature import generate_email_signature, normalize_name
 import os
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from .env file
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
+
+# Enable debug mode
+app.config['DEBUG'] = os.environ.get('FLASK_DEBUG', 'True').lower() == 'true'
 
 @app.route('/')
 def index():
