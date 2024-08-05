@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Terros Signature Email - Colorful</title>
+</head>
+<body>
+    <table style="font-family: 'Helvetica Neue', Arial, sans-serif; font-size: 14px; color: #333; max-width: 500px; background-color: #f0f0f0; border-radius: 10px; padding: 15px;">
+        <tr>
+            <td style="padding-right: 20px;">
+                <img src="{{avatar_url}}" alt="{{firstname}} {{lastname}}" style="border-radius: 50%; width: 100px; height: 100px; border: 3px solid {{primary_color}};">
+            </td>
+            <td>
+                <h2 style="margin: 0; color: {{primary_color}};">{{firstname}} {{lastname}}</h2>
+                <p style="margin: 5px 0; color: {{secondary_color}}; font-style: italic;">{{title}} | Terros</p>
+                <p style="margin: 5px 0;">
+                    <a href="mailto:{{email}}" style="color: {{primary_color}}; text-decoration: none;">{{email}}</a>
+                </p>
+                <p style="margin: 5px 0;">{{phone}}</p>
+                <p style="margin: 5px 0;">
+                    <a href="https://terros.io" style="color: {{primary_color}}; text-decoration: none;">terros.io</a>
+                </p>
+                <p style="margin: 5px 0; font-size: 12px; color: #999;">83 Boulevard de Sébastopol 75002 Paris</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding-top: 15px;">
+                <img src="{{logo_url}}" alt="Terros Logo" style="width: 120px;">
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
