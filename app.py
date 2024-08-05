@@ -29,14 +29,14 @@ def generate_signature():
     phone = data['phone']
     avatar_url = data['avatar_url']
     template = data['template']
-    primary_color = data['primary_color']
-    secondary_color = data['secondary_color']
-    font_style = data['font_style']
-    layout = data['layout']
-    linkedin = data['linkedin']
-    twitter = data['twitter']
-    include_qr_code = data['include_qr_code']
-    signature_size = data['signature_size']
+    primary_color = data.get('primary_color', '#4a90e2')
+    secondary_color = data.get('secondary_color', '#333333')
+    font_style = data.get('font_style', 'Arial, sans-serif')
+    layout = data.get('layout', 'horizontal')
+    linkedin = data.get('linkedin', False)
+    twitter = data.get('twitter', False)
+    include_qr_code = data.get('include_qr_code', False)
+    signature_size = data.get('signature_size', '100')
     logo_url = data.get('logo_url', '')
 
     template_path = TEMPLATES.get(template, 'template.html')

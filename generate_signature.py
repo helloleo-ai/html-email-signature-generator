@@ -46,6 +46,3 @@ def generate_email_signature(firstname, lastname, title, email, phone, avatar_ur
             template = re.sub(r'.*' + re.escape(placeholder) + r'.*\n?', '', template)
     
     return template
-
-# The main() function and other input processing functions have been removed
-# as they are not needed for the web application.
