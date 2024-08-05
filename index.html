@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Signature Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<style>
+    <style>
         body {
             background-color: #e6edf5;
             min-height: 100vh;
@@ -56,78 +56,125 @@
         .card-body {
             background-color: white;
         }
+        .template-card {
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+        .template-card:hover {
+            transform: scale(1.05);
+        }
+        .template-card.selected {
+            border: 3px solid #1e3c72;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1 class="text-center">Email Signature Generator</h1>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="mb-0">Signature Form</h3>
-                    </div>
+        
+        <!-- Step 1: Template Selection -->
+        <div id="step1" class="row">
+            <div class="col-md-4">
+                <div class="card template-card" onclick="selectTemplate('default')">
+                    <img src="https://via.placeholder.com/300x200?text=Default+Template" class="card-img-top" alt="Default Template">
                     <div class="card-body">
-                        <form id="signatureForm">
-                            <div class="mb-3">
-                                <label for="firstname" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstname" value="John" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="lastname" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastname" value="Doe" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="title" class="form-label">Title</label>
-                                <input type="text" class="form-control" id="title" value="Software Engineer" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" value="john.doe@example.com" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="phone" value="+1 (123) 456-7890" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="avatar_url" class="form-label">Avatar URL</label>
-                                <input type="url" class="form-control" id="avatar_url" value="https://via.placeholder.com/130" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100">Generate Signature</button>
-                        </form>
-                        <div id="downloadLink" class="mt-4"></div>
+                        <h5 class="card-title">Default Template</h5>
+                        <p class="card-text">A professional and clean design suitable for most business needs.</p>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">
-<div class="card">
-                    <div class="card-header">
-                        <h3 class="mb-0">Live Preview</h3>
-                    </div>
+            <div class="col-md-4">
+                <div class="card template-card" onclick="selectTemplate('minimalist')">
+                    <img src="https://via.placeholder.com/300x200?text=Minimalist+Template" class="card-img-top" alt="Minimalist Template">
                     <div class="card-body">
-                        <div id="signaturePreview"></div>
-                    </div>
-                </div>
-                <div class="card mt-3">
-                    <div class="card-header">
-                        <h3 class="mb-0">Template Selection</h3>
-                    </div>
-                    <div class="card-body">
-                        <select id="templateSelector" class="form-select" onchange="updatePreview()">
-                            <option value="default">Default</option>
-                            <option value="minimalist">Minimalist</option>
-                            <option value="colorful">Colorful</option>
-                        </select>
+                        <h5 class="card-title">Minimalist Template</h5>
+                        <p class="card-text">A sleek and simple design for those who prefer a no-frills approach.</p>
                     </div>
                 </div>
             </div>
-</div>
+            <div class="col-md-4">
+                <div class="card template-card" onclick="selectTemplate('colorful')">
+                    <img src="https://via.placeholder.com/300x200?text=Colorful+Template" class="card-img-top" alt="Colorful Template">
+                    <div class="card-body">
+                        <h5 class="card-title">Colorful Template</h5>
+                        <p class="card-text">A vibrant and eye-catching design to make your signature stand out.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 2: Signature Form and Preview -->
+        <div id="step2" style="display: none;">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0">Signature Form</h3>
+                        </div>
+                        <div class="card-body">
+                            <form id="signatureForm">
+                                <div class="mb-3">
+                                    <label for="firstname" class="form-label">First Name</label>
+                                    <input type="text" class="form-control" id="firstname" value="John" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="lastname" class="form-label">Last Name</label>
+                                    <input type="text" class="form-control" id="lastname" value="Doe" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="title" class="form-label">Title</label>
+                                    <input type="text" class="form-control" id="title" value="Software Engineer" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" value="john.doe@example.com" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="phone" class="form-label">Phone</label>
+                                    <input type="tel" class="form-control" id="phone" value="+1 (123) 456-7890" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="avatar_url" class="form-label">Avatar URL</label>
+                                    <input type="url" class="form-control" id="avatar_url" value="https://via.placeholder.com/130" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100">Generate Signature</button>
+                            </form>
+                            <div id="downloadLink" class="mt-4"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="mb-0">Live Preview</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="signaturePreview"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button onclick="goBack()" class="btn btn-secondary mt-3">Back to Template Selection</button>
         </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-function updatePreview() {
+        let selectedTemplate = 'default';
+
+        function selectTemplate(template) {
+            selectedTemplate = template;
+            document.getElementById('step1').style.display = 'none';
+            document.getElementById('step2').style.display = 'block';
+            updatePreview();
+        }
+
+        function goBack() {
+            document.getElementById('step1').style.display = 'flex';
+            document.getElementById('step2').style.display = 'none';
+        }
+
+        function updatePreview() {
             const formData = {
                 firstname: document.getElementById('firstname').value,
                 lastname: document.getElementById('lastname').value,
@@ -135,7 +182,7 @@ function updatePreview() {
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 avatar_url: document.getElementById('avatar_url').value,
-                template: document.getElementById('templateSelector').value
+                template: selectedTemplate
             };
 
             fetch('http://127.0.0.1:5000/generate_signature', {
@@ -158,14 +205,14 @@ function updatePreview() {
             e.preventDefault();
             updatePreview();
             
-const formData = {
+            const formData = {
                 firstname: document.getElementById('firstname').value,
                 lastname: document.getElementById('lastname').value,
                 title: document.getElementById('title').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 avatar_url: document.getElementById('avatar_url').value,
-                template: document.getElementById('templateSelector').value
+                template: selectedTemplate
             };
 
             fetch('http://127.0.0.1:5000/generate_signature', {
