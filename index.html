@@ -299,11 +299,41 @@
             </div>
             <button onclick="goBack()" class="btn btn-secondary mt-3">Back to Template Selection</button>
         </div>
+</div>
+    </div>
+
+    <!-- Step 3: Final Preview and Download -->
+    <div id="step3" style="display: none;">
+        <h3 class="step-subtitle mb-4">Your Signature is Ready!</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="mb-0">Final Preview</h3>
+                    </div>
+                    <div class="card-body">
+                        <div id="finalSignaturePreview"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="mb-0">Actions</h3>
+                    </div>
+                    <div class="card-body">
+                        <button id="downloadSignature" class="btn btn-primary btn-lg w-100 mb-3">Download Signature</button>
+                        <button onclick="newSignature()" class="btn btn-secondary btn-lg w-100">Create New Signature</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         let selectedTemplate = 'default';
+        let generatedFilename = '';
 
         function selectTemplate(template) {
             selectedTemplate = template;
@@ -368,7 +398,7 @@ function updatePreview() {
             });
         }
 
-        document.getElementById('signatureForm').addEventListener('submit', function(e) {
+document.getElementById('signatureForm').addEventListener('submit', function(e) {
             e.preventDefault();
             updatePreview();
             
@@ -379,7 +409,15 @@ function updatePreview() {
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 avatar_url: document.getElementById('avatar_url').value,
-                template: selectedTemplate
+                template: selectedTemplate,
+                primary_color: document.getElementById('primaryColor').value,
+                secondary_color: document.getElementById('secondaryColor').value,
+                font_style: document.getElementById('fontStyle').value,
+                layout: document.getElementById('layout').value,
+                linkedin: document.getElementById('linkedinIcon').checked,
+                twitter: document.getElementById('twitterIcon').checked,
+                include_qr_code: document.getElementById('includeQRCode').checked,
+                signature_size: document.getElementById('signatureSize').value
             };
 
             fetch('http://127.0.0.1:5000/generate_signature', {
@@ -391,18 +429,28 @@ function updatePreview() {
             })
             .then(response => response.json())
             .then(data => {
-                const downloadLink = document.createElement('a');
-                downloadLink.href = `http://127.0.0.1:5000/download/${data.filename}`;
-                downloadLink.download = data.filename;
-                downloadLink.classList.add('btn', 'btn-primary', 'mt-3');
-                downloadLink.textContent = 'Download Signature';
-                document.getElementById('downloadLink').innerHTML = '';
-                document.getElementById('downloadLink').appendChild(downloadLink);
+                document.getElementById('finalSignaturePreview').innerHTML = data.signature;
+                generatedFilename = data.filename;
+                document.getElementById('step2').style.display = 'none';
+                document.getElementById('step3').style.display = 'block';
             })
             .catch((error) => {
                 console.error('Error:', error);
             });
         });
+
+        document.getElementById('downloadSignature').addEventListener('click', function() {
+            if (generatedFilename) {
+                window.location.href = `http://127.0.0.1:5000/download/${generatedFilename}`;
+            }
+        });
+
+        function newSignature() {
+            document.getElementById('step3').style.display = 'none';
+            document.getElementById('step1').style.display = 'flex';
+            document.getElementById('signatureForm').reset();
+            updatePreview();
+        }
 
         // Update preview on input change
         document.querySelectorAll('#signatureForm input').forEach(input => {
