@@ -19,6 +19,7 @@ def generate_email_signature(firstname, lastname, title, email, phone, avatar_ur
         template = file.read()
     
     avatar_direct_url = convert_drive_link_to_direct_url(avatar_url) if avatar_url else ''
+    logo_direct_url = convert_drive_link_to_direct_url(logo_url) if logo_url else ''
     
     replacements = {
         '{{firstname}}': firstname,
@@ -35,12 +36,12 @@ def generate_email_signature(firstname, lastname, title, email, phone, avatar_ur
         '{{twitter_icon}}': '<a href="#"><img src="twitter_icon.png" alt="Twitter"></a>' if twitter else '',
         '{{qr_code}}': '<img src="qr_code.png" alt="QR Code">' if include_qr_code else '',
         '{{signature_size}}': f'font-size: {signature_size}%;',
-        '{{logo_url}}': logo_url if logo_url else 'default_logo.png'
+        '{{logo_url}}': logo_direct_url if logo_direct_url else 'https://drive.google.com/uc?export=view&id=1pCySh1accz-byDc4NNqbpc_ZBgG0zui0'
     }
     
     for placeholder, value in replacements.items():
         if value:
-            template = template.replace(placeholder, value)
+            template = template.replace(placeholder, str(value))
         else:
             # Remove the entire line if the value is empty
             template = re.sub(r'.*' + re.escape(placeholder) + r'.*\n?', '', template)

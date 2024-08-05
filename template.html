@@ -3,56 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <title>Terros Signature Email</title>
-    <style>
+<style>
         .signature-container {
             max-width: 600px;
             font-family: {{font_style}};
             {{signature_size}}
             color: {{secondary_color}};
         }
-        .signature-container .{{layout_class}} {
+        .signature-container.{{layout_class}} {
             display: flex;
             flex-direction: {{layout_class == 'signature-horizontal' ? 'row' : 'column'}};
         }
     </style>
 </head>
-<table class="signature-container {{layout_class}}">
-    <tr>
-      <td style="vertical-align: top; border-right: 1px solid #ccc; padding-right: 20px;">
-        <table style="margin-bottom: 10px;">
-          <tr>
-            <td style="font-size: 22px; font-weight: bold;">{{firstname}} {{lastname}}</td>
-          </tr>
-          <tr>
-            <td style="font-size: 18px; color: #555;">{{title}} | Terros</td>
-          </tr>
-          <tr>
-            <td style="font-size: 14px; color: #555;">
-              <a href="mailto:{{email}}" style="color: #007bff; text-decoration: none;">{{email}}</a>
+<body>
+    <table class="signature-container {{layout_class}}" cellspacing="0" cellpadding="0" border="0">
+        <tr>
+            <td style="vertical-align: top; padding-right: 20px;">
+                <table cellspacing="0" cellpadding="0" border="0" style="margin-bottom: 10px;">
+                    <tr>
+                        <td style="font-size: 22px; font-weight: bold; color: {{primary_color}};">{{firstname}} {{lastname}}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 18px; color: {{secondary_color}};">{{title}} | Terros</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 14px; color: {{secondary_color}};">
+                            <a href="mailto:{{email}}" style="color: {{primary_color}}; text-decoration: none;">{{email}}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 14px; color: {{secondary_color}};">{{phone}}</td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 14px; color: {{secondary_color}};">
+                            <a href="https://terros.io" style="color: {{primary_color}}; text-decoration: none;">https://terros.io</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="font-size: 14px; color: {{secondary_color}};">83 Boulevard de Sébastopol 75002 Paris</td>
+                    </tr>          
+                </table>
             </td>
-          </tr>
-          <tr>
-            <td style="font-size: 14px; color: #555;">{{phone}}</td>
-          </tr>
-          <tr>
-            <td style="font-size: 14px; color: #555;">
-              <a href="https://terros.io" style="color: #007bff; text-decoration: none;">https://terros.io</a>
+            <td style="vertical-align: middle; padding-left: 20px;">
+                <img src="{{avatar_url}}" alt="{{firstname}} {{lastname}}" style="border-radius: 50%; width: 130px; height: 130px;">
             </td>
-          </tr>
-          <tr>
-            <td style="font-size: 14px; color: #555;">83 Boulevard de Sébastopol 75002 Paris</td>
-          </tr>          
-        </table>
-      </td>
-      <td style="vertical-align: middle; padding-left: 20px;">
-        <img src="{{avatar_url}}" alt="{{firstname}} {{lastname}}" style="border-radius: 50%; width: 130px; height: 130px;">
-      </td>
-    </tr>
-    <tr>
-      <td colspan="2" style="padding-top: 1px;">
-        <hr style="border: 0; border-top: 1px solid #ccc;">
-        <img src="https://drive.google.com/uc?export=view&id=1pCySh1accz-byDc4NNqbpc_ZBgG0zui0" alt="Terros Logo" style="width: 150px;">
-      </td>
-    </tr>
-  </table>
+        </tr>
+        <tr>
+            <td colspan="2" style="padding-top: 10px;">
+                <hr style="border: 0; border-top: 1px solid {{secondary_color}}; margin: 10px 0;">
+                <img src="{{logo_url}}" alt="Terros Logo" style="width: 150px;">
+            </td>
+        </tr>
+    </table>
+</body>
 </html> 
