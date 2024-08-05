@@ -9,50 +9,78 @@
         body {
             background-color: #e6edf5;
             min-height: 100vh;
-            padding-top: 70px; /* Add padding to account for the fixed navbar */
+            padding-top: 70px;
+            padding-bottom: 100px; /* Add padding for the stepper */
         }
         /* Stepper styles */
         .stepper {
-            margin-bottom: 30px;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: #ffffff;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            padding: 15px 0;
+            z-index: 1000;
         }
         .step {
             text-align: center;
             position: relative;
             width: 33.33%;
+            transition: all 0.3s ease;
         }
         .step-circle {
-            width: 30px;
-            height: 30px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             background-color: #ccc;
             color: #fff;
             text-align: center;
-            line-height: 30px;
+            line-height: 50px;
             margin: 0 auto 10px;
+            font-size: 24px;
+            transition: all 0.3s ease;
         }
         .step.active .step-circle {
             background-color: #1e3c72;
+            transform: scale(1.1);
         }
         .step-text {
             font-size: 14px;
             color: #666;
+            transition: all 0.3s ease;
         }
         .step.active .step-text {
             color: #1e3c72;
             font-weight: bold;
+            transform: scale(1.05);
         }
         .step::after {
             content: '';
             position: absolute;
-            top: 15px;
+            top: 25px;
             left: 60%;
             width: 80%;
             height: 2px;
             background-color: #ccc;
             z-index: -1;
+            transition: all 0.3s ease;
+        }
+        .step.active::after {
+            background-color: #1e3c72;
         }
         .step:last-child::after {
             display: none;
+        }
+        /* Animation for step content */
+        .step-content {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+        }
+        .step-content.active {
+            opacity: 1;
+            transform: translateY(0);
         }
         .container {
             max-width: 1200px;
@@ -141,7 +169,7 @@
             color: #1e3c72;
             font-weight: normal;
         }
-    </style>
+</style>
 </head>
 <body>
 <!-- Updated navbar with logo -->
@@ -154,24 +182,9 @@
     </nav>
 
 <div class="container">
-        <!-- Stepper -->
-        <div class="stepper d-flex justify-content-between mb-5">
-            <div class="step active" id="step1-indicator">
-                <div class="step-circle">1</div>
-                <div class="step-text">Choose Template</div>
-            </div>
-            <div class="step" id="step2-indicator">
-                <div class="step-circle">2</div>
-                <div class="step-text">Customize</div>
-            </div>
-            <div class="step" id="step3-indicator">
-                <div class="step-circle">3</div>
-                <div class="step-text">Download</div>
-            </div>
-        </div>
 
-        <!-- Step 1: Template Selection -->
-        <div id="step1" class="row">
+<!-- Step 1: Template Selection -->
+        <div id="step1" class="row step-content active">
             <h3 class="step-subtitle mb-4 text-center">Choose your signature template</h3>
             <div class="col-md-4 mb-4">
                 <div class="card template-card" onclick="selectTemplate('default')">
@@ -247,8 +260,8 @@
             </div>
         </div>
 
-        <!-- Step 2: Signature Form and Preview -->
-<div id="step2" style="display: none;">
+<!-- Step 2: Signature Form and Preview -->
+        <div id="step2" class="step-content">
             <h3 class="step-subtitle mb-4">Customize your signature</h3>
             <button id="toggleDesignParams" class="btn btn-secondary mb-3">Show Design Parameters</button>
             <div id="designParams" class="settings-bar mb-4" style="display: none;">
@@ -362,7 +375,7 @@
     </div>
 
 <!-- Step 3: Final Preview and Download -->
-<div id="step3" style="display: none;">
+<div id="step3" class="step-content">
         <h3 class="step-subtitle mb-4 text-center">Your Signature is Ready!</h3>
         <div class="row justify-content-center">
             <div class="col-md-6 mb-4">
@@ -384,6 +397,22 @@
                 </div>
             </div>
         </div>
+</div>
+
+    <!-- Stepper -->
+    <div class="stepper d-flex justify-content-between">
+        <div class="step active" id="step1-indicator">
+            <div class="step-circle">🎨</div>
+            <div class="step-text">Choose Template</div>
+        </div>
+        <div class="step" id="step2-indicator">
+            <div class="step-circle">✏️</div>
+            <div class="step-text">Customize</div>
+        </div>
+        <div class="step" id="step3-indicator">
+            <div class="step-circle">📥</div>
+            <div class="step-text">Download</div>
+        </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -391,17 +420,17 @@
         let selectedTemplate = 'default';
         let generatedFilename = '';
 
-function selectTemplate(template) {
+        function selectTemplate(template) {
             selectedTemplate = template;
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('step2').style.display = 'block';
+            document.getElementById('step1').classList.remove('active');
+            document.getElementById('step2').classList.add('active');
             updateStepperIndicator(2);
             updatePreview();
         }
 
         function goBack() {
-            document.getElementById('step1').style.display = 'flex';
-            document.getElementById('step2').style.display = 'none';
+            document.getElementById('step2').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
             updateStepperIndicator(1);
         }
 
@@ -413,9 +442,18 @@ function selectTemplate(template) {
                     el.classList.remove('active');
                 }
             });
+            
+            // Animate step content
+            document.querySelectorAll('.step-content').forEach((el, index) => {
+                if (index + 1 === step) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
+                }
+            });
         }
 
-function updatePreview() {
+        function updatePreview() {
             const formData = {
                 firstname: document.getElementById('firstname').value,
                 lastname: document.getElementById('lastname').value,
@@ -498,9 +536,9 @@ document.getElementById('signatureForm').addEventListener('submit', function(e) 
             .then(response => response.json())
             .then(data => {
                 document.getElementById('finalSignaturePreview').innerHTML = data.signature;
-generatedFilename = data.filename;
-                document.getElementById('step2').style.display = 'none';
-                document.getElementById('step3').style.display = 'block';
+                generatedFilename = data.filename;
+                document.getElementById('step2').classList.remove('active');
+                document.getElementById('step3').classList.add('active');
                 updateStepperIndicator(3);
             })
             .catch((error) => {
@@ -514,9 +552,9 @@ generatedFilename = data.filename;
             }
         });
 
-function newSignature() {
-            document.getElementById('step3').style.display = 'none';
-            document.getElementById('step1').style.display = 'flex';
+        function newSignature() {
+            document.getElementById('step3').classList.remove('active');
+            document.getElementById('step1').classList.add('active');
             document.getElementById('signatureForm').reset();
             updateStepperIndicator(1);
             updatePreview();
