@@ -90,10 +90,9 @@
         .navbar-brand {
             color: white;
         }
-        .step-title {
+.step-subtitle {
             color: #1e3c72;
-            margin-bottom: 20px;
-            font-weight: bold;
+            font-weight: normal;
         }
     </style>
 </head>
@@ -105,12 +104,10 @@
         </div>
     </nav>
 
-    <div class="container">
-        <h1 class="text-center">Email Signature Generator</h1>
-        
+<div class="container">
         <!-- Step 1: Template Selection -->
         <div id="step1" class="row">
-            <h2 class="step-title">Step 1: Choose your signature template!</h2>
+            <h3 class="step-subtitle mb-4">Choose your signature template</h3>
             <div class="col-md-4 mb-4">
                 <div class="card template-card" onclick="selectTemplate('default')">
                     <img src="https://via.placeholder.com/300x200?text=Default+Template" class="card-img-top" alt="Default Template">
@@ -186,8 +183,8 @@
         </div>
 
         <!-- Step 2: Signature Form and Preview -->
-        <div id="step2" style="display: none;">
-            <h2 class="step-title">Step 2: Customize your signature</h2>
+<div id="step2" style="display: none;">
+            <h3 class="step-subtitle mb-4">Customize your signature</h3>
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
