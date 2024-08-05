@@ -162,7 +162,7 @@
         .template-card.selected {
             border: 3px solid #1e3c72;
         }
-        .preview-container {
+.preview-container {
             display: none;
             position: absolute;
             top: 100%;
@@ -173,6 +173,7 @@
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             border-radius: 0 0 15px 15px;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
         .template-card:hover .preview-container {
             display: block;
@@ -180,6 +181,10 @@
         .preview-container img {
             width: 100%;
             height: auto;
+            transition: transform 0.3s ease;
+        }
+        .template-card:hover .preview-container img {
+            transform: scale(1.05);
         }
 .navbar {
             background-color: #e6edf5;
@@ -220,52 +225,64 @@
                             <h5 class="card-title">Default Template</h5>
                             <p class="card-text">A professional and clean design suitable for most business needs.</p>
                         </div>
-                        <div class="preview-container" id="defaultPreview"></div>
+                        <div class="preview-container">
+                            <img src="public/images/default_preview.png" alt="Default Template Preview" class="img-fluid">
+                        </div>
                     </div>
                 </div>
-                <div class="col">
+<div class="col">
                     <div class="card template-card h-100" onclick="selectTemplate('minimalist')">
                         <div class="card-body">
                             <h5 class="card-title">Minimalist Template</h5>
                             <p class="card-text">A sleek and simple design for those who prefer a no-frills approach.</p>
                         </div>
-                        <div class="preview-container" id="minimalistPreview"></div>
+                        <div class="preview-container">
+                            <img src="public/images/minimalist_preview.png" alt="Minimalist Template Preview" class="img-fluid">
+                        </div>
                     </div>
                 </div>
-                <div class="col">
+<div class="col">
                     <div class="card template-card h-100" onclick="selectTemplate('colorful')">
                         <div class="card-body">
                             <h5 class="card-title">Colorful Template</h5>
                             <p class="card-text">A vibrant and eye-catching design to make your signature stand out.</p>
                         </div>
-                        <div class="preview-container" id="colorfulPreview"></div>
+                        <div class="preview-container">
+                            <img src="public/images/colorful_preview.png" alt="Colorful Template Preview" class="img-fluid">
+                        </div>
                     </div>
                 </div>
-                <div class="col">
+<div class="col">
                     <div class="card template-card h-100" onclick="selectTemplate('modern')">
                         <div class="card-body">
                             <h5 class="card-title">Modern Template</h5>
                             <p class="card-text">A contemporary design with a clean and professional look.</p>
                         </div>
-                        <div class="preview-container" id="modernPreview"></div>
+                        <div class="preview-container">
+                            <img src="public/images/modern_preview.png" alt="Modern Template Preview" class="img-fluid">
+                        </div>
                     </div>
                 </div>
-                <div class="col">
+<div class="col">
                     <div class="card template-card h-100" onclick="selectTemplate('creative')">
                         <div class="card-body">
                             <h5 class="card-title">Creative Template</h5>
                             <p class="card-text">An artistic and unique design for those who want to stand out.</p>
                         </div>
-                        <div class="preview-container" id="creativePreview"></div>
+                        <div class="preview-container">
+                            <img src="public/images/creative_preview.png" alt="Creative Template Preview" class="img-fluid">
+                        </div>
                     </div>
                 </div>
-                <div class="col">
+<div class="col">
                     <div class="card template-card h-100" onclick="selectTemplate('corporate')">
                         <div class="card-body">
                             <h5 class="card-title">Corporate Template</h5>
                             <p class="card-text">A formal and professional design suitable for corporate environments.</p>
                         </div>
-                        <div class="preview-container" id="corporatePreview"></div>
+                        <div class="preview-container">
+                            <img src="public/images/corporate_preview.png" alt="Corporate Template Preview" class="img-fluid">
+                        </div>
                     </div>
                 </div>
             </div>
