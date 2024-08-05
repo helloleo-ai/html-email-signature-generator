@@ -11,6 +11,49 @@
             min-height: 100vh;
             padding-top: 70px; /* Add padding to account for the fixed navbar */
         }
+        /* Stepper styles */
+        .stepper {
+            margin-bottom: 30px;
+        }
+        .step {
+            text-align: center;
+            position: relative;
+            width: 33.33%;
+        }
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: #ccc;
+            color: #fff;
+            text-align: center;
+            line-height: 30px;
+            margin: 0 auto 10px;
+        }
+        .step.active .step-circle {
+            background-color: #1e3c72;
+        }
+        .step-text {
+            font-size: 14px;
+            color: #666;
+        }
+        .step.active .step-text {
+            color: #1e3c72;
+            font-weight: bold;
+        }
+        .step::after {
+            content: '';
+            position: absolute;
+            top: 15px;
+            left: 60%;
+            width: 80%;
+            height: 2px;
+            background-color: #ccc;
+            z-index: -1;
+        }
+        .step:last-child::after {
+            display: none;
+        }
         .container {
             max-width: 1200px;
             width: 100%;
@@ -111,9 +154,25 @@
     </nav>
 
 <div class="container">
+        <!-- Stepper -->
+        <div class="stepper d-flex justify-content-between mb-5">
+            <div class="step active" id="step1-indicator">
+                <div class="step-circle">1</div>
+                <div class="step-text">Choose Template</div>
+            </div>
+            <div class="step" id="step2-indicator">
+                <div class="step-circle">2</div>
+                <div class="step-text">Customize</div>
+            </div>
+            <div class="step" id="step3-indicator">
+                <div class="step-circle">3</div>
+                <div class="step-text">Download</div>
+            </div>
+        </div>
+
         <!-- Step 1: Template Selection -->
         <div id="step1" class="row">
-            <h3 class="step-subtitle mb-4">Choose your signature template</h3>
+            <h3 class="step-subtitle mb-4 text-center">Choose your signature template</h3>
             <div class="col-md-4 mb-4">
                 <div class="card template-card" onclick="selectTemplate('default')">
                     <img src="https://via.placeholder.com/300x200?text=Default+Template" class="card-img-top" alt="Default Template">
@@ -303,8 +362,8 @@
     </div>
 
 <!-- Step 3: Final Preview and Download -->
-    <div id="step3" style="display: none;">
-        <h3 class="step-subtitle mb-4">Your Signature is Ready!</h3>
+<div id="step3" style="display: none;">
+        <h3 class="step-subtitle mb-4 text-center">Your Signature is Ready!</h3>
         <div class="row justify-content-center">
             <div class="col-md-6 mb-4">
                 <div class="card">
@@ -332,16 +391,28 @@
         let selectedTemplate = 'default';
         let generatedFilename = '';
 
-        function selectTemplate(template) {
+function selectTemplate(template) {
             selectedTemplate = template;
             document.getElementById('step1').style.display = 'none';
             document.getElementById('step2').style.display = 'block';
+            updateStepperIndicator(2);
             updatePreview();
         }
 
         function goBack() {
             document.getElementById('step1').style.display = 'flex';
             document.getElementById('step2').style.display = 'none';
+            updateStepperIndicator(1);
+        }
+
+        function updateStepperIndicator(step) {
+            document.querySelectorAll('.step').forEach((el, index) => {
+                if (index + 1 <= step) {
+                    el.classList.add('active');
+                } else {
+                    el.classList.remove('active');
+                }
+            });
         }
 
 function updatePreview() {
@@ -427,9 +498,10 @@ document.getElementById('signatureForm').addEventListener('submit', function(e) 
             .then(response => response.json())
             .then(data => {
                 document.getElementById('finalSignaturePreview').innerHTML = data.signature;
-                generatedFilename = data.filename;
+generatedFilename = data.filename;
                 document.getElementById('step2').style.display = 'none';
                 document.getElementById('step3').style.display = 'block';
+                updateStepperIndicator(3);
             })
             .catch((error) => {
                 console.error('Error:', error);
@@ -442,10 +514,11 @@ document.getElementById('signatureForm').addEventListener('submit', function(e) 
             }
         });
 
-        function newSignature() {
+function newSignature() {
             document.getElementById('step3').style.display = 'none';
             document.getElementById('step1').style.display = 'flex';
             document.getElementById('signatureForm').reset();
+            updateStepperIndicator(1);
             updatePreview();
         }
 
