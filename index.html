@@ -191,7 +191,8 @@
         <!-- Step 2: Signature Form and Preview -->
 <div id="step2" style="display: none;">
             <h3 class="step-subtitle mb-4">Customize your signature</h3>
-            <div class="settings-bar mb-4">
+            <button id="toggleDesignParams" class="btn btn-secondary mb-3">Show Design Parameters</button>
+            <div id="designParams" class="settings-bar mb-4" style="display: none;">
                 <div class="row">
                     <div class="col-md-3">
                         <label for="primaryColor" class="form-label">Primary Color</label>
@@ -410,6 +411,20 @@ function updatePreview() {
 
         // Initial preview
         updatePreview();
+</script>
+    <script>
+        document.getElementById('toggleDesignParams').addEventListener('click', function() {
+            var designParams = document.getElementById('designParams');
+            var buttonText = this.textContent;
+            
+            if (designParams.style.display === 'none') {
+                designParams.style.display = 'block';
+                this.textContent = 'Hide Design Parameters';
+            } else {
+                designParams.style.display = 'none';
+                this.textContent = 'Show Design Parameters';
+            }
+        });
     </script>
 <footer class="bg-light py-4 mt-5">
         <div class="container">
