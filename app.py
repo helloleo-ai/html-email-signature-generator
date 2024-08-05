@@ -9,7 +9,10 @@ CORS(app)
 TEMPLATES = {
     'default': 'template.html',
     'minimalist': 'template_minimalist.html',
-    'colorful': 'template_colorful.html'
+    'colorful': 'template_colorful.html',
+    'modern': 'template_modern.html',
+    'creative': 'template_creative.html',
+    'corporate': 'template_corporate.html'
 }
 
 @app.route('/')
