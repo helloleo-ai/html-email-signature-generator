@@ -4,10 +4,16 @@ Welcome to the HTML Email Signature Generator! This tool helps you create profes
 
 ## Features 🌟
 
-- 📝 Customizable template
-- 🎨 Easy-to-use Python script
+- 📝 Customizable templates
+- 🎨 Easy-to-use web interface
 - 🔧 Flexible and adaptable
 - 💼 Perfect for businesses and individuals
+
+## Preview 👀
+
+Here's a sneak peek of what our Email Signature Generator looks like:
+
+![Preview 1](public/images/previews/preview_1.png)
 
 ## How to Use 🔍
 
@@ -21,7 +27,7 @@ Welcome to the HTML Email Signature Generator! This tool helps you create profes
    ./install_and_run.sh
    ```
 4. Open your web browser and go to `http://localhost:5000`
-5. Fill in the form and generate your email signature
+5. Choose a template and customize your email signature
 6. Download the generated HTML file and add it to your email client ✉️
 
 ## Requirements 📋
