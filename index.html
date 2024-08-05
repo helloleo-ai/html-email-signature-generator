@@ -9,9 +9,7 @@
         body {
             background-color: #e6edf5;
             min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding-top: 70px; /* Add padding to account for the fixed navbar */
         }
         .container {
             max-width: 1200px;
@@ -85,14 +83,34 @@
             width: 100%;
             height: auto;
         }
+        .navbar {
+            background-color: rgba(30, 60, 114, 0.8);
+            backdrop-filter: blur(10px);
+        }
+        .navbar-brand {
+            color: white;
+        }
+        .step-title {
+            color: #1e3c72;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
+    <!-- Transparent top navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">Email Signature Generator</a>
+        </div>
+    </nav>
+
     <div class="container">
         <h1 class="text-center">Email Signature Generator</h1>
         
         <!-- Step 1: Template Selection -->
-<div id="step1" class="row">
+        <div id="step1" class="row">
+            <h2 class="step-title">Step 1: Choose your signature template!</h2>
             <div class="col-md-4 mb-4">
                 <div class="card template-card" onclick="selectTemplate('default')">
                     <img src="https://via.placeholder.com/300x200?text=Default+Template" class="card-img-top" alt="Default Template">
@@ -169,6 +187,7 @@
 
         <!-- Step 2: Signature Form and Preview -->
         <div id="step2" style="display: none;">
+            <h2 class="step-title">Step 2: Customize your signature</h2>
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
