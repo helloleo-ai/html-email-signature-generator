@@ -83,12 +83,16 @@
             width: 100%;
             height: auto;
         }
-        .navbar {
-            background-color: rgba(30, 60, 114, 0.8);
-            backdrop-filter: blur(10px);
+.navbar {
+            background-color: #e6edf5;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
         .navbar-brand {
-            color: white;
+            color: #1e3c72;
+            font-weight: bold;
+        }
+        .navbar-brand img {
+            margin-right: 10px;
         }
 .step-subtitle {
             color: #1e3c72;
@@ -97,10 +101,13 @@
     </style>
 </head>
 <body>
-    <!-- Transparent top navbar -->
-    <nav class="navbar navbar-expand-lg fixed-top">
+<!-- Updated navbar with logo -->
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #e6edf5;">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">Email Signature Generator</a>
+            <a class="navbar-brand" href="#">
+                <img src="public/images/freesign.png" alt="FreeSign Logo" height="30" class="d-inline-block align-top">
+                Email Signature Generator
+            </a>
         </div>
     </nav>
 
