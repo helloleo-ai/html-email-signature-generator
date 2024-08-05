@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Email Signature Generator</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+<style>
         body {
             background-color: #e6edf5;
             min-height: 100vh;
@@ -66,6 +66,25 @@
         .template-card.selected {
             border: 3px solid #1e3c72;
         }
+        .preview-container {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+            background-color: white;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border-radius: 0 0 15px 15px;
+            overflow: hidden;
+        }
+        .template-card:hover .preview-container {
+            display: block;
+        }
+        .preview-container img {
+            width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -81,6 +100,9 @@
                         <h5 class="card-title">Default Template</h5>
                         <p class="card-text">A professional and clean design suitable for most business needs.</p>
                     </div>
+                    <div class="preview-container">
+                        <img src="https://i.imgur.com/JYIlK6l.png" alt="Default Template Preview" class="img-fluid">
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
@@ -89,6 +111,9 @@
                     <div class="card-body">
                         <h5 class="card-title">Minimalist Template</h5>
                         <p class="card-text">A sleek and simple design for those who prefer a no-frills approach.</p>
+                    </div>
+                    <div class="preview-container">
+                        <img src="https://i.imgur.com/5pQ7Yjf.png" alt="Minimalist Template Preview" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -99,6 +124,9 @@
                         <h5 class="card-title">Colorful Template</h5>
                         <p class="card-text">A vibrant and eye-catching design to make your signature stand out.</p>
                     </div>
+                    <div class="preview-container">
+                        <img src="https://i.imgur.com/lUHn9HJ.png" alt="Colorful Template Preview" class="img-fluid">
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
@@ -107,6 +135,9 @@
                     <div class="card-body">
                         <h5 class="card-title">Modern Template</h5>
                         <p class="card-text">A contemporary design with a clean and professional look.</p>
+                    </div>
+                    <div class="preview-container">
+                        <img src="https://i.imgur.com/GaHFJlN.png" alt="Modern Template Preview" class="img-fluid">
                     </div>
                 </div>
             </div>
@@ -117,6 +148,9 @@
                         <h5 class="card-title">Creative Template</h5>
                         <p class="card-text">An artistic and unique design for those who want to stand out.</p>
                     </div>
+                    <div class="preview-container">
+                        <img src="https://i.imgur.com/FTKUH0c.png" alt="Creative Template Preview" class="img-fluid">
+                    </div>
                 </div>
             </div>
             <div class="col-md-4 mb-4">
@@ -125,6 +159,9 @@
                     <div class="card-body">
                         <h5 class="card-title">Corporate Template</h5>
                         <p class="card-text">A formal and professional design suitable for corporate environments.</p>
+                    </div>
+                    <div class="preview-container">
+                        <img src="https://i.imgur.com/9QNTO4K.png" alt="Corporate Template Preview" class="img-fluid">
                     </div>
                 </div>
             </div>
