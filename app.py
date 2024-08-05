@@ -6,6 +6,12 @@ import os
 app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
 
+TEMPLATES = {
+    'default': 'template.html',
+    'minimalist': 'template_minimalist.html',
+    'colorful': 'template_colorful.html'
+}
+
 @app.route('/')
 def index():
     return app.send_static_file('index.html')
@@ -19,8 +25,10 @@ def generate_signature():
     email = data['email']
     phone = data['phone']
     avatar_url = data['avatar_url']
+    template = data['template']
 
-    signature = generate_email_signature(firstname, lastname, title, email, phone, avatar_url)
+    template_path = TEMPLATES.get(template, 'template.html')
+    signature = generate_email_signature(firstname, lastname, title, email, phone, avatar_url, template_path=template_path)
 
     folder = "html_signatures"
     os.makedirs(folder, exist_ok=True)

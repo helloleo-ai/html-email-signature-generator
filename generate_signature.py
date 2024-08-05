@@ -12,7 +12,7 @@ def convert_drive_link_to_direct_url(drive_link):
 def normalize_name(name):
     return re.sub(r'\W+', '_', name).lower()
 
-def generate_email_signature(firstname, lastname, title, email, phone, avatar_url, template_path='template.html'):
+def generate_email_signature(firstname, lastname, title, email, phone, avatar_url, template_path):
     with open(template_path, 'r') as file:
         template = file.read()
     
