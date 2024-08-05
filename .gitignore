@@ -1,3 +1,8 @@
+# Ignore generated HTML signatures
+html_signatures/
+
+# Ignore template files
+templates/*.html
 data.csv
 html_signatures/*
 venv-esign

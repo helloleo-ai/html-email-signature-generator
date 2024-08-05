@@ -7,12 +7,12 @@ app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
 
 TEMPLATES = {
-    'default': 'template.html',
-    'minimalist': 'template_minimalist.html',
-    'colorful': 'template_colorful.html',
-    'modern': 'template_modern.html',
-    'creative': 'template_creative.html',
-    'corporate': 'template_corporate.html'
+    'default': 'templates/template.html',
+    'minimalist': 'templates/template_minimalist.html',
+    'colorful': 'templates/template_colorful.html',
+    'modern': 'templates/template_modern.html',
+    'creative': 'templates/template_creative.html',
+    'corporate': 'templates/template_corporate.html'
 }
 
 @app.route('/')
