@@ -14,6 +14,8 @@ Welcome to the HTML Email Signature Generator! This tool helps you create profes
 Here's a sneak peek of what our Email Signature Generator looks like:
 
 ![Preview 1](public/images/previews/preview_1.png)
+![Preview 2](public/images/previews/preview_2.png)
+![Preview 3](public/images/previews/preview_3.png)
 
 ## How to Use 🔍
 
