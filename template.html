@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <title>Terros Signature Email</title>
+    <style>
+        .signature-container {
+            max-width: 600px;
+            font-family: {{font_style}};
+            {{signature_size}}
+            color: {{secondary_color}};
+        }
+        .signature-container .{{layout_class}} {
+            display: flex;
+            flex-direction: {{layout_class == 'signature-horizontal' ? 'row' : 'column'}};
+        }
+    </style>
 </head>
-<table style="max-width: 600px; font-family: Arial, sans-serif; font-size: 14px; color: #000;">
+<table class="signature-container {{layout_class}}">
     <tr>
       <td style="vertical-align: top; border-right: 1px solid #ccc; padding-right: 20px;">
         <table style="margin-bottom: 10px;">

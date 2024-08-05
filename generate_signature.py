@@ -12,7 +12,9 @@ def convert_drive_link_to_direct_url(drive_link):
 def normalize_name(name):
     return re.sub(r'\W+', '_', name).lower()
 
-def generate_email_signature(firstname, lastname, title, email, phone, avatar_url, template_path):
+def generate_email_signature(firstname, lastname, title, email, phone, avatar_url, template_path,
+                             primary_color, secondary_color, font_style, layout, linkedin, twitter,
+                             include_qr_code, signature_size, logo_url):
     with open(template_path, 'r') as file:
         template = file.read()
     
@@ -24,7 +26,16 @@ def generate_email_signature(firstname, lastname, title, email, phone, avatar_ur
         '{{title}}': title,
         '{{email}}': email,
         '{{phone}}': phone,
-        '{{avatar_url}}': avatar_direct_url
+        '{{avatar_url}}': avatar_direct_url,
+        '{{primary_color}}': primary_color,
+        '{{secondary_color}}': secondary_color,
+        '{{font_style}}': font_style,
+        '{{layout_class}}': 'signature-horizontal' if layout == 'horizontal' else 'signature-vertical',
+        '{{linkedin_icon}}': '<a href="#"><img src="linkedin_icon.png" alt="LinkedIn"></a>' if linkedin else '',
+        '{{twitter_icon}}': '<a href="#"><img src="twitter_icon.png" alt="Twitter"></a>' if twitter else '',
+        '{{qr_code}}': '<img src="qr_code.png" alt="QR Code">' if include_qr_code else '',
+        '{{signature_size}}': f'font-size: {signature_size}%;',
+        '{{logo_url}}': logo_url if logo_url else 'default_logo.png'
     }
     
     for placeholder, value in replacements.items():

@@ -29,9 +29,25 @@ def generate_signature():
     phone = data['phone']
     avatar_url = data['avatar_url']
     template = data['template']
+    primary_color = data['primary_color']
+    secondary_color = data['secondary_color']
+    font_style = data['font_style']
+    layout = data['layout']
+    linkedin = data['linkedin']
+    twitter = data['twitter']
+    include_qr_code = data['include_qr_code']
+    signature_size = data['signature_size']
+    logo_url = data.get('logo_url', '')
 
     template_path = TEMPLATES.get(template, 'template.html')
-    signature = generate_email_signature(firstname, lastname, title, email, phone, avatar_url, template_path=template_path)
+    signature = generate_email_signature(
+        firstname, lastname, title, email, phone, avatar_url,
+        template_path=template_path, primary_color=primary_color,
+        secondary_color=secondary_color, font_style=font_style,
+        layout=layout, linkedin=linkedin, twitter=twitter,
+        include_qr_code=include_qr_code, signature_size=signature_size,
+        logo_url=logo_url
+    )
 
     folder = "html_signatures"
     os.makedirs(folder, exist_ok=True)

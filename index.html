@@ -191,6 +191,62 @@
         <!-- Step 2: Signature Form and Preview -->
 <div id="step2" style="display: none;">
             <h3 class="step-subtitle mb-4">Customize your signature</h3>
+            <div class="settings-bar mb-4">
+                <div class="row">
+                    <div class="col-md-3">
+                        <label for="primaryColor" class="form-label">Primary Color</label>
+                        <input type="color" class="form-control form-control-color" id="primaryColor" value="#4a90e2">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="secondaryColor" class="form-label">Secondary Color</label>
+                        <input type="color" class="form-control form-control-color" id="secondaryColor" value="#333333">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="fontStyle" class="form-label">Font Style</label>
+                        <select class="form-select" id="fontStyle">
+                            <option value="Arial, sans-serif">Arial</option>
+                            <option value="'Helvetica Neue', Helvetica, sans-serif">Helvetica</option>
+                            <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                            <option value="Georgia, serif">Georgia</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="layout" class="form-label">Layout</label>
+                        <select class="form-select" id="layout">
+                            <option value="horizontal">Horizontal</option>
+                            <option value="vertical">Vertical</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-3">
+                        <label for="logoUpload" class="form-label">Upload Logo</label>
+                        <input type="file" class="form-control" id="logoUpload" accept="image/*">
+                    </div>
+                    <div class="col-md-3">
+                        <label for="socialIcons" class="form-label">Social Icons</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="linkedinIcon" checked>
+                            <label class="form-check-label" for="linkedinIcon">LinkedIn</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="twitterIcon" checked>
+                            <label class="form-check-label" for="twitterIcon">Twitter</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="includeQRCode" class="form-label">Include QR Code</label>
+                        <div class="form-check form-switch">
+                            <input class="form-check-input" type="checkbox" id="includeQRCode">
+                            <label class="form-check-label" for="includeQRCode">Toggle QR Code</label>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="signatureSize" class="form-label">Signature Size</label>
+                        <input type="range" class="form-range" id="signatureSize" min="80" max="120" value="100">
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-6">
                     <div class="card">
@@ -260,7 +316,7 @@
             document.getElementById('step2').style.display = 'none';
         }
 
-        function updatePreview() {
+function updatePreview() {
             const formData = {
                 firstname: document.getElementById('firstname').value,
                 lastname: document.getElementById('lastname').value,
@@ -268,8 +324,32 @@
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 avatar_url: document.getElementById('avatar_url').value,
-                template: selectedTemplate
+                template: selectedTemplate,
+                primary_color: document.getElementById('primaryColor').value,
+                secondary_color: document.getElementById('secondaryColor').value,
+                font_style: document.getElementById('fontStyle').value,
+                layout: document.getElementById('layout').value,
+                linkedin: document.getElementById('linkedinIcon').checked,
+                twitter: document.getElementById('twitterIcon').checked,
+                include_qr_code: document.getElementById('includeQRCode').checked,
+                signature_size: document.getElementById('signatureSize').value
             };
+
+            // Handle logo upload
+            const logoInput = document.getElementById('logoUpload');
+            if (logoInput.files && logoInput.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    formData.logo_url = e.target.result;
+                    sendPreviewRequest(formData);
+                };
+                reader.readAsDataURL(logoInput.files[0]);
+            } else {
+                sendPreviewRequest(formData);
+            }
+        }
+
+        function sendPreviewRequest(formData) {
 
             fetch('http://127.0.0.1:5000/generate_signature', {
                 method: 'POST',
