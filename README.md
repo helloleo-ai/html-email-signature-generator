@@ -28,9 +28,14 @@ Here's a sneak peek of what our Email Signature Generator looks like:
    ```
    ./install_and_run.sh
    ```
-4. Open your web browser and go to `http://localhost:5000`
-5. Choose a template and customize your email signature
-6. Download the generated HTML file and add it to your email client ✉️
+5. Open the `index.html` file in a text editor
+6. Find the `API_URL` variable near the top of the `<script>` section and set it to your server's URL:
+   ```javascript
+   const API_URL = 'http://your-server-url:5000'; // Replace with your actual server URL
+   ```
+7. Open `index.html` in your web browser
+8. Choose a template and customize your email signature
+9. Download the generated HTML file and add it to your email client ✉️
 
 ## Requirements 📋
 
