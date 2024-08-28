@@ -456,17 +456,24 @@
         let selectedTemplate = 'default';
         let generatedFilename = '';
 
-        function selectTemplate(template) {
+function selectTemplate(template) {
             selectedTemplate = template;
             goToStep(2);
             updatePreview();
         }
 
         function goBack() {
-            goToStep(1);
+            history.back();
         }
 
-        function goToStep(step) {
+        function newSignature() {
+            history.pushState(null, '', '#step1');
+            goToStep(1);
+            document.getElementById('signatureForm').reset();
+            updatePreview();
+        }
+
+function goToStep(step) {
             document.querySelectorAll('.step-content').forEach((el, index) => {
                 if (index + 1 === step) {
                     el.classList.add('active');
@@ -476,7 +483,19 @@
             });
             updateStepperIndicator(step);
             window.scrollTo(0, 0);
+            history.pushState(null, '', `#step${step}`);
         }
+
+        window.addEventListener('popstate', function() {
+            const step = parseInt(window.location.hash.replace('#step', '')) || 1;
+            goToStep(step);
+        });
+
+        // Initialize the correct step based on the URL hash
+        document.addEventListener('DOMContentLoaded', function() {
+            const step = parseInt(window.location.hash.replace('#step', '')) || 1;
+            goToStep(step);
+        });
 
         function updateStepperIndicator(step) {
             document.querySelectorAll('.step').forEach((el, index) => {
