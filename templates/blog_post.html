@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.title }} - FreeSign Blog</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+        body {
+            background-color: #e6edf5;
+            padding-top: 70px;
+        }
+        .blog-content {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        .blog-title {
+            color: #1e3c72;
+        }
+.blog-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .article-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #e6edf5;">
+        <div class="container">
+            <a class="navbar-brand" href="/">
+                <img src="/public/images/freesign.png" alt="FreeSign Logo" height="30" class="d-inline-block align-top">
+            </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <div class="blog-content">
+            <h1 class="mb-4 blog-title">{{ post.title }}</h1>
+            <p class="text-muted">{{ post.date.strftime('%B %d, %Y') }} by {{ post.author }}</p>
+            <hr>
+<img src="{{ post.cover_image }}" alt="{{ post.title }}" class="blog-image img-fluid" style="max-height: 400px; width: 100%; object-fit: cover;">
+<div class="mt-4 article-content">
+                {{ content | safe }}
+            </div>
+            <hr>
+            <a href="{{ url_for('blog') }}" class="btn btn-secondary">Back to Blog</a>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const articleContent = document.querySelector('.article-content');
+                const images = articleContent.querySelectorAll('img');
+                images.forEach(img => {
+                    img.classList.add('img-fluid', 'article-image');
+                    img.style.maxHeight = '400px';
+                    img.style.width = '100%';
+                    img.style.objectFit = 'cover';
+                });
+            });
+        </script>
+</body>
+</html>

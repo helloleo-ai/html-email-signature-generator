@@ -206,10 +206,18 @@
 <body>
 <!-- Updated navbar with logo -->
 <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #e6edf5;">
-        <div class="container-fluid">
+<div class="container-fluid">
             <a class="navbar-brand" href="#">
                 <img src="public/images/freesign.png" alt="FreeSign Logo" height="30" class="d-inline-block align-top">
             </a>
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link active" href="/">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/blog">Blog</a>
+                </li>
+            </ul>
         </div>
     </nav>
 
@@ -448,17 +456,24 @@
         let selectedTemplate = 'default';
         let generatedFilename = '';
 
-        function selectTemplate(template) {
+function selectTemplate(template) {
             selectedTemplate = template;
             goToStep(2);
             updatePreview();
         }
 
         function goBack() {
-            goToStep(1);
+            history.back();
         }
 
-        function goToStep(step) {
+        function newSignature() {
+            history.pushState(null, '', '#step1');
+            goToStep(1);
+            document.getElementById('signatureForm').reset();
+            updatePreview();
+        }
+
+function goToStep(step) {
             document.querySelectorAll('.step-content').forEach((el, index) => {
                 if (index + 1 === step) {
                     el.classList.add('active');
@@ -468,7 +483,19 @@
             });
             updateStepperIndicator(step);
             window.scrollTo(0, 0);
+            history.pushState(null, '', `#step${step}`);
         }
+
+        window.addEventListener('popstate', function() {
+            const step = parseInt(window.location.hash.replace('#step', '')) || 1;
+            goToStep(step);
+        });
+
+        // Initialize the correct step based on the URL hash
+        document.addEventListener('DOMContentLoaded', function() {
+            const step = parseInt(window.location.hash.replace('#step', '')) || 1;
+            goToStep(step);
+        });
 
         function updateStepperIndicator(step) {
             document.querySelectorAll('.step').forEach((el, index) => {
