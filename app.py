@@ -2,9 +2,36 @@ from flask import Flask, render_template, request, jsonify, send_file
 from flask_cors import CORS
 from generate_signature import generate_email_signature, normalize_name
 import os
+import markdown
+from datetime import datetime
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
+
+# Sample blog posts
+blog_posts = [
+    {
+        'id': 1,
+        'title': 'The Importance of Professional Email Signatures',
+        'content': 'content/blog_post_1.md',
+        'date': datetime(2023, 7, 1),
+        'author': 'John Doe'
+    },
+    {
+        'id': 2,
+        'title': 'How to Design an Effective HTML Email Signature',
+        'content': 'content/blog_post_2.md',
+        'date': datetime(2023, 7, 15),
+        'author': 'Jane Smith'
+    },
+    {
+        'id': 3,
+        'title': 'Top 5 Email Signature Generators in 2023',
+        'content': 'content/blog_post_3.md',
+        'date': datetime(2023, 8, 1),
+        'author': 'Mike Johnson'
+    }
+]
 
 TEMPLATES = {
     'default': 'templates/template.html',
@@ -65,6 +92,19 @@ def generate_signature():
 @app.route('/download/<filename>')
 def download_file(filename):
     return send_file(f"html_signatures/{filename}", as_attachment=True)
+
+@app.route('/blog')
+def blog():
+    return render_template('blog.html', posts=blog_posts)
+
+@app.route('/blog/<int:post_id>')
+def blog_post(post_id):
+    post = next((post for post in blog_posts if post['id'] == post_id), None)
+    if post:
+        with open(post['content'], 'r') as file:
+            content = markdown.markdown(file.read())
+        return render_template('blog_post.html', post=post, content=content)
+    return 'Post not found', 404
 
 if __name__ == '__main__':
     app.run(debug=True)
