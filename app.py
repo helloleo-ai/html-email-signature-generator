@@ -15,21 +15,24 @@ blog_posts = [
         'title': 'The Importance of Professional Email Signatures',
         'content': 'content/blog_post_1.md',
         'date': datetime(2023, 7, 1),
-        'author': 'John Doe'
+        'author': 'John Doe',
+        'cover_image': 'https://images.unsplash.com/photo-1596526131083-e8c633c948d2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
     },
     {
         'id': 2,
         'title': 'How to Design an Effective HTML Email Signature',
         'content': 'content/blog_post_2.md',
         'date': datetime(2023, 7, 15),
-        'author': 'Jane Smith'
+        'author': 'Jane Smith',
+        'cover_image': 'https://images.unsplash.com/photo-1555421689-d68471e189f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
     },
     {
         'id': 3,
         'title': 'Top 5 Email Signature Generators in 2023',
         'content': 'content/blog_post_3.md',
         'date': datetime(2023, 8, 1),
-        'author': 'Mike Johnson'
+        'author': 'Mike Johnson',
+        'cover_image': 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80'
     }
 ]
 

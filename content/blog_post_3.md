@@ -1,6 +1,6 @@
 # Top 5 Email Signature Generators in 2023
 
-![Email Signature Generators](https://example.com/email-signature-generators.jpg)
+![Email Signature Generators](https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80)
 
 Email signature generators have become increasingly popular tools for creating professional, visually appealing email signatures without the need for advanced HTML skills. Here's our roundup of the top 5 email signature generators in 2023:
 
