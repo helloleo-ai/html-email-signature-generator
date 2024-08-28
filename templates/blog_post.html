@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ post.title }} - FreeSign Blog</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+<style>
         body {
             background-color: #e6edf5;
             padding-top: 70px;
@@ -18,6 +18,19 @@
         }
         .blog-title {
             color: #1e3c72;
+        }
+.blog-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .article-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 20px 0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
     </style>
 </head>
@@ -43,7 +56,8 @@
             <h1 class="mb-4 blog-title">{{ post.title }}</h1>
             <p class="text-muted">{{ post.date.strftime('%B %d, %Y') }} by {{ post.author }}</p>
             <hr>
-            <div class="mt-4">
+<img src="{{ post.cover_image }}" alt="{{ post.title }}" class="blog-image img-fluid" style="max-height: 400px; width: 100%; object-fit: cover;">
+<div class="mt-4 article-content">
                 {{ content | safe }}
             </div>
             <hr>
@@ -52,5 +66,17 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const articleContent = document.querySelector('.article-content');
+                const images = articleContent.querySelectorAll('img');
+                images.forEach(img => {
+                    img.classList.add('img-fluid', 'article-image');
+                    img.style.maxHeight = '400px';
+                    img.style.width = '100%';
+                    img.style.objectFit = 'cover';
+                });
+            });
+        </script>
 </body>
 </html>

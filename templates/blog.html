@@ -35,6 +35,14 @@
             }
         }
     </style>
+        <style>
+            .blog-list-image {
+                transition: transform 0.3s ease-in-out;
+            }
+            .blog-post:hover .blog-list-image {
+                transform: scale(1.05);
+            }
+        </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg fixed-top" style="background-color: #e6edf5;">
@@ -59,7 +67,7 @@
             {% for post in posts %}
             <div class="col">
                 <div class="blog-post h-100" style="animation-delay: {{ loop.index0 * 0.1 }}s;">
-                    <img src="{{ post.cover_image }}" alt="{{ post.title }}" class="img-fluid mb-3 rounded" style="max-height: 200px; width: 100%; object-fit: cover;">
+                    <img src="{{ post.cover_image }}" alt="{{ post.title }}" class="img-fluid mb-3 rounded blog-list-image" style="height: 200px; width: 100%; object-fit: cover;">
                     <h2><a href="{{ url_for('blog_post', post_id=post.id) }}" class="text-decoration-none blog-title">{{ post.title }}</a></h2>
                     <p class="text-muted">{{ post.date.strftime('%B %d, %Y') }} by {{ post.author }}</p>
                     <a href="{{ url_for('blog_post', post_id=post.id) }}" class="btn btn-primary">Read More</a>
