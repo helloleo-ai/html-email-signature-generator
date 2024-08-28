@@ -4,9 +4,14 @@ from generate_signature import generate_email_signature, normalize_name
 import os
 import markdown
 from datetime import datetime
+from dotenv import load_dotenv
+
+load_dotenv()  # Load environment variables from .env file
 
 app = Flask(__name__, static_folder='.', static_url_path='')
 CORS(app)
+
+SERVER_URL = os.getenv('SERVER_URL', 'http://localhost:5000')
 
 # Sample blog posts
 blog_posts = [

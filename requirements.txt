@@ -3,3 +3,4 @@ Jinja2==3.1.2
 Werkzeug==2.3.7
 flask-cors==3.0.10
 markdown==3.4.3
+python-dotenv==1.0.0
